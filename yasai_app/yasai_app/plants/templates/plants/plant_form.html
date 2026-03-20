@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌱 野菜を追加する</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #f0f7ee; font-family: 'Helvetica Neue', sans-serif;">
+  <div class="container mt-5">
+    <h1 style="color: #4caf50; font-weight: bold;">🥬 野菜を追加する</h1>
+
+    <div class="card mt-4 p-4"
+      style="border-radius: 16px; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+          <label style="font-weight: bold; color: #333;">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+          <div style="color: #e53935; font-size: 0.85rem;">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <div class="mt-3 d-flex gap-3">
+          <button type="submit"
+            style="background-color: #4caf50; border: none; border-radius: 30px; padding: 10px 30px; color: white; font-weight: bold;">
+            💾 保存する
+          </button>
+          <a href="{% url 'plant_list' %}"
+            style="background-color: #ff7043; border: none; border-radius: 30px; padding: 10px 30px; color: white; font-weight: bold; text-decoration: none;">
+            ← 一覧に戻る
+          </a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</body>
+</html>
