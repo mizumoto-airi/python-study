@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌱 野菜育成計画</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #f0f7ee; font-family: 'Helvetica Neue', sans-serif;">
+  <div class="container-fluid px-4 mt-5">
+
+    <div class="row align-items-center mb-4">
+      <div class="col-12 col-md-8">
+        <h1 style="color: #4caf50; font-weight: bold;">🌱 野菜育成計画アプリ</h1>
+      </div>
+      <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="/create/"
+          style="background-color: #ff7043; border: none; border-radius: 30px; padding: 10px 30px; color: white; font-weight: bold; font-size: 1rem; text-decoration: none;">
+          ＋ 野菜を追加する
+        </a>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+      {% for plant in plants %}
+      <div class="col">
+        <div class="card h-100"
+          style="border-radius: 16px; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <div class="card-header"
+            style="background-color: #4caf50; color: white; border-radius: 16px 16px 0 0; font-size: 1.2rem; font-weight: bold;">
+            🥬 {{ plant.name }}
+          </div>
+          <div class="card-body">
+            <div class="mb-2">
+              <span style="background-color: #ffeb3b; color: #333; border-radius: 20px; padding: 4px 12px; font-size: 0.85rem; font-weight: bold;">
+                {{ plant.season }}
+              </span>
+            </div>
+            <div style="background-color: #e8f5e9; border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; font-size: 0.9rem;">
+              🌱 種まき：{{ plant.sow_month }}月
+            </div>
+            <div style="background-color: #e8f5e9; border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; font-size: 0.9rem;">
+              🌾 収穫：{{ plant.harvest_month }}月
+            </div>
+            <div style="background-color: #e8f5e9; border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; font-size: 0.9rem;">
+              📅 収穫まで：{{ plant.days_to_harvest }}日
+            </div>
+            {% if plant.memo %}
+            <div style="background-color: #e8f5e9; border-radius: 10px; padding: 8px 12px; margin-bottom: 8px; font-size: 0.9rem;">
+              📝 {{ plant.memo }}
+            </div>
+            {% endif %}
+
+            <div class="mt-3 d-flex gap-2">
+              <a href="{% url 'plant_detail' plant.pk %}"
+                style="background-color: #4caf50; border: none; border-radius: 30px; padding: 6px 20px; color: white; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
+                🔍 詳細
+              </a>
+              <a href="{% url 'plant_delete' plant.pk %}"
+                style="background-color: #e53935; border: none; border-radius: 30px; padding: 6px 20px; color: white; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
+                🗑️ 削除
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</body>
+</html>
