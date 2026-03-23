@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>python-intro.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="python-%E5%85%A5%E9%96%80%E3%82%AC%E3%82%A4%E3%83%89">Python 入門ガイド</h1>
+<h2 id="%E7%9B%AE%E6%AC%A1">目次</h2>
+<ol>
+<li><a href="#python%E3%81%A8%E3%81%AF">Pythonとは？</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E8%AA%9E">基本用語</a></li>
+<li><a href="#%E5%A4%89%E6%95%B0%E3%81%A8%E5%9E%8B">変数と型</a></li>
+<li><a href="#%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%93%8D%E4%BD%9C">文字列の操作</a></li>
+<li><a href="#%E3%83%AA%E3%82%B9%E3%83%88">リスト</a></li>
+<li><a href="#%E8%BE%9E%E6%9B%B8">辞書</a></li>
+<li><a href="#for%E6%96%87">for文</a></li>
+<li><a href="#if%E6%96%87">if文</a></li>
+<li><a href="#%E9%96%A2%E6%95%B0">関数</a></li>
+<li><a href="#ruby%E3%81%A8python%E3%81%AE%E6%AF%94%E8%BC%83">RubyとPythonの比較</a></li>
+</ol>
+<hr>
+<h2 id="python%E3%81%A8%E3%81%AF">Pythonとは？</h2>
+<p>PythonはシンプルなコードでAI・Web開発・データ分析など幅広い用途に使えるプログラミング言語です。</p>
+<p><strong>特徴</strong></p>
+<ul>
+<li>コードがシンプルで読みやすい</li>
+<li>インデント（字下げ）でコードのまとまりを表す</li>
+<li>ライブラリが豊富でAI・データ分析・Web開発に強い</li>
+</ul>
+<hr>
+<h2 id="%E5%9F%BA%E6%9C%AC%E7%94%A8%E8%AA%9E">基本用語</h2>
+<table>
+<thead>
+<tr>
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>変数</td>
+<td>データを入れる箱</td>
+</tr>
+<tr>
+<td>型</td>
+<td>データの種類（文字・数値・真偽値など）</td>
+</tr>
+<tr>
+<td>リスト</td>
+<td>複数のデータをまとめる配列</td>
+</tr>
+<tr>
+<td>辞書</td>
+<td>キーと値のペアでデータをまとめるもの</td>
+</tr>
+<tr>
+<td>関数</td>
+<td>処理をまとめて名前をつけたもの</td>
+</tr>
+<tr>
+<td>インデント</td>
+<td>コードの字下げ。Pythonではコードのまとまりを表す</td>
+</tr>
+<tr>
+<td>pip</td>
+<td>Pythonのパッケージ管理ツール（npmのようなもの）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="%E5%A4%89%E6%95%B0%E3%81%A8%E5%9E%8B">変数と型</h2>
+<p>Pythonは型宣言が不要です。値を代入すると自動的に型が決まります。</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 文字列（str）</span>
+name = <span class="hljs-string">"愛梨"</span>
+
+<span class="hljs-comment"># 整数（int）</span>
+age = <span class="hljs-number">22</span>
+
+<span class="hljs-comment"># 小数（float）</span>
+height = <span class="hljs-number">1.58</span>
+
+<span class="hljs-comment"># 真偽値（bool）</span>
+is_student = <span class="hljs-literal">True</span>
+
+<span class="hljs-comment"># 型を確認したいとき</span>
+print(type(name))    <span class="hljs-comment"># → &lt;class 'str'&gt;</span>
+print(type(age))     <span class="hljs-comment"># → &lt;class 'int'&gt;</span>
+print(type(height))  <span class="hljs-comment"># → &lt;class 'float'&gt;</span>
+print(type(is_student)) <span class="hljs-comment"># → &lt;class 'bool'&gt;</span>
+</div></code></pre>
+<p><strong>ポイント</strong></p>
+<ul>
+<li>JavaやTypeScriptと違い型を書かなくていい</li>
+<li>Rubyと同じ感覚で使える</li>
+</ul>
+<hr>
+<h2 id="%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E6%93%8D%E4%BD%9C">文字列の操作</h2>
+<h3 id="fstring%E3%82%A8%E3%83%95%E3%82%B9%E3%83%88%E3%83%AA%E3%83%B3%E3%82%B0">fstring（エフストリング）</h3>
+<p>文字列の前に <code>f</code> をつけると <code>{}</code> の中に変数を埋め込めます。</p>
+<pre class="hljs"><code><div>name = <span class="hljs-string">"愛梨"</span>
+age = <span class="hljs-number">22</span>
+height = <span class="hljs-number">1.58</span>
+
+<span class="hljs-comment"># fstringを使った書き方（おすすめ）</span>
+print(<span class="hljs-string">f"名前：<span class="hljs-subst">{name}</span>、年齢：<span class="hljs-subst">{age}</span>歳、身長：<span class="hljs-subst">{height}</span>m"</span>)
+<span class="hljs-comment"># → 名前：愛梨、年齢：22歳、身長：1.58m</span>
+
+<span class="hljs-comment"># 昔の書き方（面倒）</span>
+print(<span class="hljs-string">"名前："</span> + name + <span class="hljs-string">"、年齢："</span> + str(age) + <span class="hljs-string">"歳"</span>)
+</div></code></pre>
+<hr>
+<h2 id="%E3%83%AA%E3%82%B9%E3%83%88">リスト</h2>
+<p>複数のデータをまとめる配列です。Rubyの配列と同じ概念です。</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># リストの作成</span>
+vegetables = [<span class="hljs-string">"トマト"</span>, <span class="hljs-string">"きゅうり"</span>, <span class="hljs-string">"なす"</span>, <span class="hljs-string">"ピーマン"</span>]
+
+print(vegetables)        <span class="hljs-comment"># → ['トマト', 'きゅうり', 'なす', 'ピーマン']</span>
+print(vegetables[<span class="hljs-number">0</span>])     <span class="hljs-comment"># → トマト（0番目から始まる）</span>
+print(vegetables[<span class="hljs-number">-1</span>])    <span class="hljs-comment"># → ピーマン（最後の要素）</span>
+print(len(vegetables))   <span class="hljs-comment"># → 4（要素の数）</span>
+
+<span class="hljs-comment"># 要素の追加</span>
+vegetables.append(<span class="hljs-string">"かぼちゃ"</span>)
+print(vegetables)  <span class="hljs-comment"># → ['トマト', 'きゅうり', 'なす', 'ピーマン', 'かぼちゃ']</span>
+
+<span class="hljs-comment"># 要素の削除</span>
+vegetables.remove(<span class="hljs-string">"なす"</span>)
+print(vegetables)  <span class="hljs-comment"># → ['トマト', 'きゅうり', 'ピーマン', 'かぼちゃ']</span>
+</div></code></pre>
+<p><strong>RubyとPythonの比較</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Ruby</span>
+vegetables = [<span class="hljs-string">"トマト"</span>, <span class="hljs-string">"きゅうり"</span>]
+vegetables.push(<span class="hljs-string">"なす"</span>)
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python</span>
+vegetables = [<span class="hljs-string">"トマト"</span>, <span class="hljs-string">"きゅうり"</span>]
+vegetables.append(<span class="hljs-string">"なす"</span>)
+</div></code></pre>
+<hr>
+<h2 id="%E8%BE%9E%E6%9B%B8">辞書</h2>
+<p>キーと値のペアでデータをまとめるものです。Rubyのハッシュと同じ概念です。</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 辞書の作成</span>
+tomato = {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"トマト"</span>,
+    <span class="hljs-string">"season"</span>: <span class="hljs-string">"夏"</span>,
+    <span class="hljs-string">"days"</span>: <span class="hljs-number">90</span>,  <span class="hljs-comment"># 収穫までの日数</span>
+}
+
+print(tomato)              <span class="hljs-comment"># → {'name': 'トマト', 'season': '夏', 'days': 90}</span>
+print(tomato[<span class="hljs-string">"name"</span>])      <span class="hljs-comment"># → トマト（キーで値を取得）</span>
+print(tomato[<span class="hljs-string">"season"</span>])    <span class="hljs-comment"># → 夏</span>
+
+<span class="hljs-comment"># 値の追加・更新</span>
+tomato[<span class="hljs-string">"color"</span>] = <span class="hljs-string">"赤"</span>
+print(tomato)  <span class="hljs-comment"># → {'name': 'トマト', 'season': '夏', 'days': 90, 'color': '赤'}</span>
+</div></code></pre>
+<p><strong>RubyとPythonの比較</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Ruby（シンボルをキーに使う）</span>
+tomato = { <span class="hljs-symbol">name:</span> <span class="hljs-string">"トマト"</span>, <span class="hljs-symbol">season:</span> <span class="hljs-string">"夏"</span> }
+tomato[<span class="hljs-symbol">:name</span>]  <span class="hljs-comment"># → "トマト"</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python（文字列をキーに使う）</span>
+tomato = { <span class="hljs-string">"name"</span>: <span class="hljs-string">"トマト"</span>, <span class="hljs-string">"season"</span>: <span class="hljs-string">"夏"</span> }
+tomato[<span class="hljs-string">"name"</span>]  <span class="hljs-comment"># → "トマト"</span>
+</div></code></pre>
+<hr>
+<h2 id="for%E6%96%87">for文</h2>
+<p>リストの中身を一個ずつ取り出して処理します。</p>
+<pre class="hljs"><code><div>vegetables = [<span class="hljs-string">"トマト"</span>, <span class="hljs-string">"きゅうり"</span>, <span class="hljs-string">"なす"</span>, <span class="hljs-string">"ピーマン"</span>]
+
+<span class="hljs-comment"># 基本のfor文</span>
+<span class="hljs-keyword">for</span> vegetable <span class="hljs-keyword">in</span> vegetables:
+    print(<span class="hljs-string">f"<span class="hljs-subst">{vegetable}</span>を育てています"</span>)
+<span class="hljs-comment"># → トマトを育てています</span>
+<span class="hljs-comment"># → きゅうりを育てています</span>
+<span class="hljs-comment"># → なすを育てています</span>
+<span class="hljs-comment"># → ピーマンを育てています</span>
+
+<span class="hljs-comment"># インデックスも取得したいとき</span>
+<span class="hljs-keyword">for</span> i, vegetable <span class="hljs-keyword">in</span> enumerate(vegetables):
+    print(<span class="hljs-string">f"<span class="hljs-subst">{i+<span class="hljs-number">1</span>}</span>番目：<span class="hljs-subst">{vegetable}</span>"</span>)
+<span class="hljs-comment"># → 1番目：トマト</span>
+<span class="hljs-comment"># → 2番目：きゅうり</span>
+</div></code></pre>
+<p><strong>⚠️ Pythonのfor文の重要なポイント</strong></p>
+<p>Pythonはインデント（字下げ）でコードのまとまりを表します。
+<code>end</code> は不要ですが、インデントがずれるとエラーになります！</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 正しい書き方</span>
+<span class="hljs-keyword">for</span> vegetable <span class="hljs-keyword">in</span> vegetables:
+    print(vegetable)   <span class="hljs-comment"># インデントあり → forの中</span>
+    print(<span class="hljs-string">"育ててます"</span>) <span class="hljs-comment"># インデントあり → forの中</span>
+
+print(<span class="hljs-string">"終わり"</span>) <span class="hljs-comment"># インデントなし → forの外</span>
+
+<span class="hljs-comment"># 間違った書き方（エラーになる）</span>
+<span class="hljs-keyword">for</span> vegetable <span class="hljs-keyword">in</span> vegetables:
+print(vegetable)  <span class="hljs-comment"># インデントなし → エラー！</span>
+</div></code></pre>
+<p><strong>RubyとPythonの比較</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Ruby（endが必要）</span>
+vegetables.each <span class="hljs-keyword">do</span> <span class="hljs-params">|vegetable|</span>
+  puts <span class="hljs-string">"<span class="hljs-subst">#{vegetable}</span>を育てています"</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python（endは不要、インデントで管理）</span>
+<span class="hljs-keyword">for</span> vegetable <span class="hljs-keyword">in</span> vegetables:
+    print(<span class="hljs-string">f"<span class="hljs-subst">{vegetable}</span>を育てています"</span>)
+</div></code></pre>
+<hr>
+<h2 id="if%E6%96%87">if文</h2>
+<p>条件によって処理を分岐します。</p>
+<pre class="hljs"><code><div>age = <span class="hljs-number">22</span>
+
+<span class="hljs-keyword">if</span> age &gt;= <span class="hljs-number">20</span>:
+    print(<span class="hljs-string">"成人です"</span>)
+<span class="hljs-keyword">elif</span> age &gt;= <span class="hljs-number">13</span>:
+    print(<span class="hljs-string">"中高生です"</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"子供です"</span>)
+<span class="hljs-comment"># → 成人です</span>
+</div></code></pre>
+<p><strong>ポイント</strong></p>
+<ul>
+<li><code>elif</code> はRubyの <code>elsif</code> と同じ</li>
+<li><code>:</code> を忘れずに書く</li>
+<li>インデントで処理のまとまりを表す</li>
+</ul>
+<hr>
+<h2 id="%E9%96%A2%E6%95%B0">関数</h2>
+<p>処理をまとめて名前をつけたものです。</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 基本の関数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_info</span><span class="hljs-params">(name, days)</span>:</span>
+    print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span>は種まきから<span class="hljs-subst">{days}</span>日で収穫できます"</span>)
+
+plant_info(<span class="hljs-string">"トマト"</span>, <span class="hljs-number">90</span>)    <span class="hljs-comment"># → トマトは種まきから90日で収穫できます</span>
+plant_info(<span class="hljs-string">"きゅうり"</span>, <span class="hljs-number">60</span>)  <span class="hljs-comment"># → きゅうりは種まきから60日で収穫できます</span>
+
+<span class="hljs-comment"># 戻り値のある関数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_harvest_month</span><span class="hljs-params">(sow_month, days)</span>:</span>
+    harvest_month = sow_month + (days // <span class="hljs-number">30</span>)
+    <span class="hljs-keyword">return</span> harvest_month
+
+result = calc_harvest_month(<span class="hljs-number">4</span>, <span class="hljs-number">90</span>)
+print(<span class="hljs-string">f"収穫月：<span class="hljs-subst">{result}</span>月"</span>)  <span class="hljs-comment"># → 収穫月：7月</span>
+</div></code></pre>
+<p><strong>関数の構造</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> 関数名<span class="hljs-params">(引数<span class="hljs-number">1</span>, 引数<span class="hljs-number">2</span>)</span>:</span>
+    <span class="hljs-comment"># 処理</span>
+    <span class="hljs-keyword">return</span> 戻り値  <span class="hljs-comment"># 戻り値がない場合は省略可</span>
+</div></code></pre>
+<p><strong>RubyとPythonの比較</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Ruby</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_info</span><span class="hljs-params">(name, days)</span></span>
+  puts <span class="hljs-string">"<span class="hljs-subst">#{name}</span>は<span class="hljs-subst">#{days}</span>日で収穫できます"</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_info</span><span class="hljs-params">(name, days)</span>:</span>
+    print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span>は<span class="hljs-subst">{days}</span>日で収穫できます"</span>)
+</div></code></pre>
+<hr>
+<h2 id="ruby%E3%81%A8python%E3%81%AE%E6%AF%94%E8%BC%83">RubyとPythonの比較</h2>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>Ruby</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文字列の埋め込み</td>
+<td><code>&quot;#{name}&quot;</code></td>
+<td><code>f&quot;{name}&quot;</code></td>
+</tr>
+<tr>
+<td>配列・リスト</td>
+<td><code>array = []</code></td>
+<td><code>list = []</code></td>
+</tr>
+<tr>
+<td>ハッシュ・辞書</td>
+<td><code>{ key: value }</code></td>
+<td><code>{ &quot;key&quot;: value }</code></td>
+</tr>
+<tr>
+<td>キーの種類</td>
+<td>シンボル（<code>:name</code>）</td>
+<td>文字列（<code>&quot;name&quot;</code>）</td>
+</tr>
+<tr>
+<td>繰り返し</td>
+<td><code>each do \|x\|...end</code></td>
+<td><code>for x in list:</code></td>
+</tr>
+<tr>
+<td>関数定義</td>
+<td><code>def name...end</code></td>
+<td><code>def name():</code></td>
+</tr>
+<tr>
+<td>出力</td>
+<td><code>puts</code></td>
+<td><code>print()</code></td>
+</tr>
+<tr>
+<td>ブロックの終わり</td>
+<td><code>end</code></td>
+<td>インデント</td>
+</tr>
+<tr>
+<td>展開</td>
+<td><code>*array</code></td>
+<td><code>*array</code></td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

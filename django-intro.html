@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>django-intro.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="django-%E5%85%A5%E9%96%80%E3%82%AC%E3%82%A4%E3%83%89">Django 入門ガイド</h1>
+<h2 id="%E7%9B%AE%E6%AC%A1">目次</h2>
+<ol>
+<li><a href="#django%E3%81%A8%E3%81%AF">Djangoとは？</a></li>
+<li><a href="#mvt%E3%81%A8%E3%81%AF">MVTとは？</a></li>
+<li><a href="#modelspy%E3%81%AE%E5%9F%BA%E6%9C%AC">models.pyの基本</a></li>
+<li><a href="#viewspy%E3%81%AE%E5%9F%BA%E6%9C%AC">views.pyの基本</a></li>
+<li><a href="#urlspy%E3%81%AE%E5%9F%BA%E6%9C%AC">urls.pyの基本</a></li>
+<li><a href="#templates%E3%81%AE%E5%9F%BA%E6%9C%AC">templatesの基本</a></li>
+<li><a href="#formspy%E3%81%AE%E5%9F%BA%E6%9C%AC">forms.pyの基本</a></li>
+<li><a href="#%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E8%AA%AC%E6%98%8E">管理画面の説明</a></li>
+<li><a href="#%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E4%B8%80%E8%A6%A7">よく使うコマンド一覧</a></li>
+</ol>
+<hr>
+<h2 id="django%E3%81%A8%E3%81%AF">Djangoとは？</h2>
+<p>DjangoはPythonのWebフレームワークです。
+「バッテリー同梱（batteries included）」と呼ばれるほど最初から機能が豊富です。</p>
+<p><strong>特徴</strong></p>
+<ul>
+<li>管理画面が自動生成される</li>
+<li>ログイン・認証機能が最初から入っている</li>
+<li>データベース操作が簡単にできる</li>
+<li>セキュリティ対策が最初から入っている</li>
+</ul>
+<hr>
+<h2 id="mvt%E3%81%A8%E3%81%AF">MVTとは？</h2>
+<p>DjangoはMVT（Model・View・Template）という構造で動いています。</p>
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>ファイル</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model（モデル）</td>
+<td><code>models.py</code></td>
+<td>データベースのテーブル設計</td>
+</tr>
+<tr>
+<td>View（ビュー）</td>
+<td><code>views.py</code></td>
+<td>処理のロジック</td>
+</tr>
+<tr>
+<td>Template（テンプレート）</td>
+<td><code>*.html</code></td>
+<td>画面のHTML</td>
+</tr>
+</tbody>
+</table>
+<p><strong>リクエストの流れ</strong></p>
+<pre class="hljs"><code><div>ブラウザ
+  ↓ URLにアクセス
+urls.py（どのviewを呼ぶか判断）
+  ↓
+views.py（データを取得・処理）
+  ↓ models.pyでDBからデータ取得
+templates/（HTMLに変換して返す）
+  ↓
+ブラウザ（画面が表示される）
+</div></code></pre>
+<hr>
+<h2 id="modelspy%E3%81%AE%E5%9F%BA%E6%9C%AC">models.pyの基本</h2>
+<p><code>models.py</code> はデータベースのテーブル設計を書くファイルです。</p>
+<h3 id="%E5%9F%BA%E6%9C%AC%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">基本の書き方</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Plant</span><span class="hljs-params">(models.Model)</span>:</span>
+    <span class="hljs-comment"># フィールド名 = フィールドの種類(オプション)</span>
+    name = models.CharField(max_length=<span class="hljs-number">100</span>)        <span class="hljs-comment"># 短い文字列</span>
+    season = models.CharField(max_length=<span class="hljs-number">50</span>)       <span class="hljs-comment"># 短い文字列</span>
+    sow_month = models.IntegerField()              <span class="hljs-comment"># 整数</span>
+    harvest_month = models.IntegerField()          <span class="hljs-comment"># 整数</span>
+    days_to_harvest = models.IntegerField()        <span class="hljs-comment"># 整数</span>
+    memo = models.TextField(blank=<span class="hljs-literal">True</span>)            <span class="hljs-comment"># 長い文字列（空でもOK）</span>
+    created_at = models.DateTimeField(auto_now_add=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 日時（自動）</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__str__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self.name  <span class="hljs-comment"># 管理画面などで表示する名前</span>
+</div></code></pre>
+<h3 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AE%E7%A8%AE%E9%A1%9E">よく使うフィールドの種類</h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>意味</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CharField</code></td>
+<td>短い文字列</td>
+<td>名前・タイトル</td>
+</tr>
+<tr>
+<td><code>TextField</code></td>
+<td>長い文字列</td>
+<td>メモ・本文</td>
+</tr>
+<tr>
+<td><code>IntegerField</code></td>
+<td>整数</td>
+<td>年齢・数量</td>
+</tr>
+<tr>
+<td><code>FloatField</code></td>
+<td>小数</td>
+<td>価格・身長</td>
+</tr>
+<tr>
+<td><code>BooleanField</code></td>
+<td>真偽値</td>
+<td>フラグ</td>
+</tr>
+<tr>
+<td><code>DateField</code></td>
+<td>日付</td>
+<td>生年月日</td>
+</tr>
+<tr>
+<td><code>DateTimeField</code></td>
+<td>日時</td>
+<td>作成日時</td>
+</tr>
+<tr>
+<td><code>ForeignKey</code></td>
+<td>外部キー（他のモデルと関連）</td>
+<td>ユーザーID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">よく使うオプション</h3>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blank=True</code></td>
+<td>空でもOK</td>
+</tr>
+<tr>
+<td><code>null=True</code></td>
+<td>NULLを許可</td>
+</tr>
+<tr>
+<td><code>auto_now_add=True</code></td>
+<td>作成時の日時を自動で保存</td>
+</tr>
+<tr>
+<td><code>auto_now=True</code></td>
+<td>更新時の日時を自動で保存</td>
+</tr>
+<tr>
+<td><code>max_length=100</code></td>
+<td>最大文字数</td>
+</tr>
+<tr>
+<td><code>default=0</code></td>
+<td>デフォルト値</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AB%E5%8F%8D%E6%98%A0%E3%81%99%E3%82%8B">モデルをデータベースに反映する</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># models.pyの変更をファイルに変換する</span>
+python manage.py makemigrations
+
+<span class="hljs-comment"># データベースに反映する</span>
+python manage.py migrate
+</div></code></pre>
+<blockquote>
+<p>⚠️ <strong>models.pyを変更したら必ずこの2つを実行する！</strong></p>
+</blockquote>
+<hr>
+<h2 id="viewspy%E3%81%AE%E5%9F%BA%E6%9C%AC">views.pyの基本</h2>
+<p><code>views.py</code> は画面に表示する処理を書くファイルです。</p>
+<h3 id="%E5%9F%BA%E6%9C%AC%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">基本の書き方</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render, redirect, get_object_or_404
+<span class="hljs-keyword">from</span> .models <span class="hljs-keyword">import</span> Plant
+<span class="hljs-keyword">from</span> .forms <span class="hljs-keyword">import</span> PlantForm
+
+<span class="hljs-comment"># 一覧ページ</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_list</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-comment"># データベースから全件取得</span>
+    plants = Plant.objects.all()
+    <span class="hljs-comment"># テンプレートにデータを渡して表示</span>
+    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">'plants/plant_list.html'</span>, {<span class="hljs-string">'plants'</span>: plants})
+
+<span class="hljs-comment"># 追加フォーム</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_create</span><span class="hljs-params">(request)</span>:</span>
+    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">'POST'</span>:        <span class="hljs-comment"># フォームが送信されたとき</span>
+        form = PlantForm(request.POST)  <span class="hljs-comment"># 送信データをフォームに入れる</span>
+        <span class="hljs-keyword">if</span> form.is_valid():             <span class="hljs-comment"># バリデーションチェック</span>
+            form.save()                 <span class="hljs-comment"># データベースに保存</span>
+            <span class="hljs-keyword">return</span> redirect(<span class="hljs-string">'plant_list'</span>)  <span class="hljs-comment"># 一覧ページに移動</span>
+    <span class="hljs-keyword">else</span>:
+        form = PlantForm()  <span class="hljs-comment"># 空のフォームを表示</span>
+    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">'plants/plant_form.html'</span>, {<span class="hljs-string">'form'</span>: form})
+
+<span class="hljs-comment"># 詳細ページ</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_detail</span><span class="hljs-params">(request, pk)</span>:</span>
+    <span class="hljs-comment"># IDでデータ取得（見つからなければ404エラー）</span>
+    plant = get_object_or_404(Plant, pk=pk)
+    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">'plants/plant_detail.html'</span>, {<span class="hljs-string">'plant'</span>: plant})
+
+<span class="hljs-comment"># 削除</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plant_delete</span><span class="hljs-params">(request, pk)</span>:</span>
+    plant = get_object_or_404(Plant, pk=pk)
+    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">'POST'</span>:  <span class="hljs-comment"># 削除確認後</span>
+        plant.delete()            <span class="hljs-comment"># データベースから削除</span>
+        <span class="hljs-keyword">return</span> redirect(<span class="hljs-string">'plant_list'</span>)
+    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">'plants/plant_confirm_delete.html'</span>, {<span class="hljs-string">'plant'</span>: plant})
+</div></code></pre>
+<h3 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%83%87%E3%83%BC%E3%82%BF%E5%8F%96%E5%BE%97%E6%96%B9%E6%B3%95">よく使うデータ取得方法</h3>
+<table>
+<thead>
+<tr>
+<th>コード</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Plant.objects.all()</code></td>
+<td>全件取得</td>
+</tr>
+<tr>
+<td><code>Plant.objects.get(pk=1)</code></td>
+<td>IDで1件取得</td>
+</tr>
+<tr>
+<td><code>Plant.objects.filter(season='夏')</code></td>
+<td>条件で絞り込み</td>
+</tr>
+<tr>
+<td><code>Plant.objects.order_by('name')</code></td>
+<td>並び替え</td>
+</tr>
+<tr>
+<td><code>Plant.objects.count()</code></td>
+<td>件数を取得</td>
+</tr>
+<tr>
+<td><code>get_object_or_404(Plant, pk=pk)</code></td>
+<td>IDで取得（なければ404）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="render%E3%81%A8redirect%E3%81%AE%E9%81%95%E3%81%84">renderとredirectの違い</h3>
+<table>
+<thead>
+<tr>
+<th>関数</th>
+<th>意味</th>
+<th>使う場面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>render</code></td>
+<td>テンプレートを表示する</td>
+<td>ページを表示するとき</td>
+</tr>
+<tr>
+<td><code>redirect</code></td>
+<td>別のURLに移動する</td>
+<td>保存・削除後にページ移動するとき</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="urlspy%E3%81%AE%E5%9F%BA%E6%9C%AC">urls.pyの基本</h2>
+<p><code>urls.py</code> はURLのルーティング設定を書くファイルです。</p>
+<h3 id="%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E5%85%A8%E4%BD%93%E3%81%AEurlspy">プロジェクト全体のurls.py</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># yasai_app/urls.py</span>
+<span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin
+<span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path, include
+
+urlpatterns = [
+    path(<span class="hljs-string">'admin/'</span>, admin.site.urls),      <span class="hljs-comment"># 管理画面</span>
+    path(<span class="hljs-string">''</span>, include(<span class="hljs-string">'plants.urls'</span>)),     <span class="hljs-comment"># plantsアプリのURLに任せる</span>
+]
+</div></code></pre>
+<h3 id="%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AEurlspy">アプリのurls.py</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># plants/urls.py</span>
+<span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path
+<span class="hljs-keyword">from</span> . <span class="hljs-keyword">import</span> views
+
+urlpatterns = [
+    path(<span class="hljs-string">''</span>, views.plant_list, name=<span class="hljs-string">'plant_list'</span>),                     <span class="hljs-comment"># 一覧</span>
+    path(<span class="hljs-string">'create/'</span>, views.plant_create, name=<span class="hljs-string">'plant_create'</span>),          <span class="hljs-comment"># 追加</span>
+    path(<span class="hljs-string">'detail/&lt;int:pk&gt;/'</span>, views.plant_detail, name=<span class="hljs-string">'plant_detail'</span>), <span class="hljs-comment"># 詳細</span>
+    path(<span class="hljs-string">'delete/&lt;int:pk&gt;/'</span>, views.plant_delete, name=<span class="hljs-string">'plant_delete'</span>), <span class="hljs-comment"># 削除</span>
+]
+</div></code></pre>
+<h3 id="path%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">pathの書き方</h3>
+<pre class="hljs"><code><div>path(<span class="hljs-string">'URL/'</span>, views.関数名, name=<span class="hljs-string">'URL名'</span>)
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'URL/'</code></td>
+<td>アクセスするURL</td>
+</tr>
+<tr>
+<td><code>views.関数名</code></td>
+<td>実行するview関数</td>
+</tr>
+<tr>
+<td><code>name='URL名'</code></td>
+<td>テンプレートから参照するための名前</td>
+</tr>
+</tbody>
+</table>
+<h3 id="url%E3%81%AB%E5%80%A4%E3%82%92%E5%9F%8B%E3%82%81%E8%BE%BC%E3%82%80">URLに値を埋め込む</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># &lt;int:pk&gt; でURLの中に数字を埋め込める</span>
+path(<span class="hljs-string">'detail/&lt;int:pk&gt;/'</span>, views.plant_detail, name=<span class="hljs-string">'plant_detail'</span>)
+
+<span class="hljs-comment"># アクセス例</span>
+<span class="hljs-comment"># http://127.0.0.1:8000/detail/1/ → pk=1</span>
+<span class="hljs-comment"># http://127.0.0.1:8000/detail/2/ → pk=2</span>
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>書き方</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;int:pk&gt;</code></td>
+<td>整数</td>
+</tr>
+<tr>
+<td><code>&lt;str:name&gt;</code></td>
+<td>文字列</td>
+</tr>
+<tr>
+<td><code>&lt;slug:slug&gt;</code></td>
+<td>スラッグ（英数字とハイフン）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="templates%E3%81%AE%E5%9F%BA%E6%9C%AC">templatesの基本</h2>
+<p>テンプレートはブラウザに表示するHTMLファイルです。
+Djangoのテンプレート記法を使ってデータを表示できます。</p>
+<h3 id="%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%81%AE%E7%BD%AE%E3%81%8D%E5%A0%B4%E6%89%80">テンプレートの置き場所</h3>
+<pre class="hljs"><code><div>アプリ名/
+└── templates/
+    └── アプリ名/
+        └── *.html
+</div></code></pre>
+<h3 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E8%A8%98%E6%B3%95">よく使うテンプレート記法</h3>
+<table>
+<thead>
+<tr>
+<th>記法</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{ 変数名 }}</code></td>
+<td>変数を表示する</td>
+</tr>
+<tr>
+<td><code>{{ 変数名\|フィルター }}</code></td>
+<td>フィルターを適用して表示する</td>
+</tr>
+<tr>
+<td><code>{% for x in list %}</code></td>
+<td>forループ</td>
+</tr>
+<tr>
+<td><code>{% endfor %}</code></td>
+<td>forループの終わり</td>
+</tr>
+<tr>
+<td><code>{% if 条件 %}</code></td>
+<td>条件分岐</td>
+</tr>
+<tr>
+<td><code>{% elif 条件 %}</code></td>
+<td>条件分岐（else if）</td>
+</tr>
+<tr>
+<td><code>{% else %}</code></td>
+<td>条件分岐（else）</td>
+</tr>
+<tr>
+<td><code>{% endif %}</code></td>
+<td>ifの終わり</td>
+</tr>
+<tr>
+<td><code>{% url 'URL名' %}</code></td>
+<td>URL名からURLを生成</td>
+</tr>
+<tr>
+<td><code>{% url 'URL名' pk %}</code></td>
+<td>URLに値を渡す</td>
+</tr>
+<tr>
+<td><code>{% csrf_token %}</code></td>
+<td>セキュリティ対策（フォームに必須）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E4%BD%BF%E7%94%A8%E4%BE%8B">使用例</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- 変数を表示 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{ plant.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- フィルターで日付をフォーマット --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ plant.created_at|date:"Y年m月d日" }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- forループ --&gt;</span>
+{% for plant in plants %}
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ plant.name }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{% endfor %}
+
+<span class="hljs-comment">&lt;!-- if文 --&gt;</span>
+{% if plant.memo %}
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ plant.memo }}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{% else %}
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>メモなし<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+{% endif %}
+
+<span class="hljs-comment">&lt;!-- URLを生成 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"{% url 'plant_list' %}"</span>&gt;</span>一覧へ<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"{% url 'plant_detail' plant.pk %}"</span>&gt;</span>詳細へ<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- フォーム --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>&gt;</span>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>保存<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</div></code></pre>
+<h3 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC">よく使うフィルター</h3>
+<table>
+<thead>
+<tr>
+<th>フィルター</th>
+<th>意味</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>date:&quot;Y年m月d日&quot;</code></td>
+<td>日付をフォーマット</td>
+<td><code>2026年03月21日</code></td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td>文字数・件数を取得</td>
+<td><code>{{ plants\|length }}</code></td>
+</tr>
+<tr>
+<td><code>upper</code></td>
+<td>大文字にする</td>
+<td><code>{{ name\|upper }}</code></td>
+</tr>
+<tr>
+<td><code>lower</code></td>
+<td>小文字にする</td>
+<td><code>{{ name\|lower }}</code></td>
+</tr>
+<tr>
+<td><code>default:&quot;なし&quot;</code></td>
+<td>値がない場合のデフォルト</td>
+<td><code>{{ memo\|default:&quot;なし&quot; }}</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="formspy%E3%81%AE%E5%9F%BA%E6%9C%AC">forms.pyの基本</h2>
+<p><code>forms.py</code> はフォームの設定を書くファイルです。</p>
+<h3 id="modelform%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9">ModelFormの書き方</h3>
+<p><code>ModelForm</code> を使うとモデルからフォームを自動生成できます。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> django <span class="hljs-keyword">import</span> forms
+<span class="hljs-keyword">from</span> .models <span class="hljs-keyword">import</span> Plant
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PlantForm</span><span class="hljs-params">(forms.ModelForm)</span>:</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Meta</span>:</span>
+        model = Plant   <span class="hljs-comment"># どのモデルを使うか</span>
+        fields = [<span class="hljs-string">'name'</span>, <span class="hljs-string">'season'</span>, <span class="hljs-string">'memo'</span>]  <span class="hljs-comment"># 表示する項目</span>
+        labels = {
+            <span class="hljs-string">'name'</span>: <span class="hljs-string">'野菜名'</span>,    <span class="hljs-comment"># 項目名を日本語に</span>
+            <span class="hljs-string">'season'</span>: <span class="hljs-string">'季節'</span>,
+            <span class="hljs-string">'memo'</span>: <span class="hljs-string">'メモ'</span>,
+        }
+        widgets = {
+            <span class="hljs-comment"># 入力欄のデザインをカスタマイズ</span>
+            <span class="hljs-string">'name'</span>: forms.TextInput(attrs={
+                <span class="hljs-string">'class'</span>: <span class="hljs-string">'form-control'</span>,       <span class="hljs-comment"># Bootstrapのクラス</span>
+                <span class="hljs-string">'placeholder'</span>: <span class="hljs-string">'例：トマト'</span>,   <span class="hljs-comment"># プレースホルダー</span>
+            }),
+            <span class="hljs-string">'memo'</span>: forms.Textarea(attrs={
+                <span class="hljs-string">'class'</span>: <span class="hljs-string">'form-control'</span>,
+                <span class="hljs-string">'rows'</span>: <span class="hljs-number">3</span>,  <span class="hljs-comment"># テキストエリアの高さ</span>
+            }),
+        }
+</div></code></pre>
+<h3 id="meta%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%AB%E6%9B%B8%E3%81%91%E3%82%8B%E3%82%82%E3%81%AE">Metaクラスに書けるもの</h3>
+<table>
+<thead>
+<tr>
+<th>キーワード</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>どのモデルを使うか</td>
+</tr>
+<tr>
+<td><code>fields</code></td>
+<td>表示する項目を指定</td>
+</tr>
+<tr>
+<td><code>exclude</code></td>
+<td>除外する項目を指定</td>
+</tr>
+<tr>
+<td><code>labels</code></td>
+<td>項目名を変える</td>
+</tr>
+<tr>
+<td><code>widgets</code></td>
+<td>入力欄のデザインを変える</td>
+</tr>
+<tr>
+<td><code>help_texts</code></td>
+<td>入力欄の下にヒント文を表示する</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86widget">よく使うWidget</h3>
+<table>
+<thead>
+<tr>
+<th>Widget</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>forms.TextInput</code></td>
+<td>1行テキスト入力</td>
+</tr>
+<tr>
+<td><code>forms.Textarea</code></td>
+<td>複数行テキスト入力</td>
+</tr>
+<tr>
+<td><code>forms.NumberInput</code></td>
+<td>数値入力</td>
+</tr>
+<tr>
+<td><code>forms.Select</code></td>
+<td>ドロップダウン</td>
+</tr>
+<tr>
+<td><code>forms.CheckboxInput</code></td>
+<td>チェックボックス</td>
+</tr>
+<tr>
+<td><code>forms.DateInput</code></td>
+<td>日付入力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="attrs%E3%81%AB%E6%9B%B8%E3%81%91%E3%82%8B%E3%82%82%E3%81%AE">attrsに書けるもの</h3>
+<p><code>attrs</code> にはHTMLの属性をそのまま書けます。</p>
+<pre class="hljs"><code><div>forms.TextInput(attrs={
+    <span class="hljs-string">'class'</span>: <span class="hljs-string">'form-control'</span>,          <span class="hljs-comment"># CSSクラス</span>
+    <span class="hljs-string">'style'</span>: <span class="hljs-string">'border-radius: 10px;'</span>,  <span class="hljs-comment"># インラインスタイル</span>
+    <span class="hljs-string">'placeholder'</span>: <span class="hljs-string">'入力してください'</span>, <span class="hljs-comment"># プレースホルダー</span>
+    <span class="hljs-string">'id'</span>: <span class="hljs-string">'my-input'</span>,                 <span class="hljs-comment"># ID</span>
+    <span class="hljs-string">'required'</span>: <span class="hljs-literal">True</span>,                 <span class="hljs-comment"># 必須入力</span>
+})
+</div></code></pre>
+<hr>
+<h2 id="%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E8%AA%AC%E6%98%8E">管理画面の説明</h2>
+<p>Djangoには最初から管理画面が用意されています。
+<code>admin.py</code> に1行書くだけで使えます。</p>
+<h3 id="%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%82%92%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B">管理画面を使えるようにする</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># plants/admin.py</span>
+<span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin
+<span class="hljs-keyword">from</span> .models <span class="hljs-keyword">import</span> Plant
+
+admin.site.register(Plant)  <span class="hljs-comment"># 管理画面にPlantを登録</span>
+</div></code></pre>
+<h3 id="%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">スーパーユーザーを作成する</h3>
+<pre class="hljs"><code><div>python manage.py createsuperuser
+</div></code></pre>
+<p>ユーザー名・メールアドレス・パスワードを入力します。</p>
+<h3 id="%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B">管理画面にアクセスする</h3>
+<p><code>http://127.0.0.1:8000/admin/</code> を開いてログインします。</p>
+<h3 id="%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%A7%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%93%E3%81%A8">管理画面でできること</h3>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>データの一覧表示</td>
+<td>登録されているデータを一覧で確認</td>
+</tr>
+<tr>
+<td>データの追加</td>
+<td>フォームからデータを追加</td>
+</tr>
+<tr>
+<td>データの編集</td>
+<td>データを編集</td>
+</tr>
+<tr>
+<td>データの削除</td>
+<td>データを削除</td>
+</tr>
+<tr>
+<td>ユーザー管理</td>
+<td>ユーザーの追加・編集・削除</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>管理画面は開発者・管理者用のツールです</strong>
+一般ユーザーには見せないように注意してください。
+本番環境では強力なパスワードを設定しましょう！</p>
+</blockquote>
+<hr>
+<h2 id="%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E4%B8%80%E8%A6%A7">よく使うコマンド一覧</h2>
+<h3 id="%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%83%BB%E3%82%A2%E3%83%97%E3%83%AA%E4%BD%9C%E6%88%90">プロジェクト・アプリ作成</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># プロジェクト作成</span>
+django<span class="hljs-literal">-admin</span> startproject プロジェクト名
+
+<span class="hljs-comment"># アプリ作成</span>
+python manage.py startapp アプリ名
+</div></code></pre>
+<h3 id="%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%B5%B7%E5%8B%95">サーバー起動</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># 開発サーバー起動</span>
+python manage.py runserver
+
+<span class="hljs-comment"># ポートを指定して起動</span>
+python manage.py runserver <span class="hljs-number">8080</span>
+</div></code></pre>
+<h3 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9">データベース</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># models.pyの変更をファイルに変換</span>
+python manage.py makemigrations
+
+<span class="hljs-comment"># データベースに反映</span>
+python manage.py migrate
+
+<span class="hljs-comment"># 現在のmigrationの状態を確認</span>
+python manage.py showmigrations
+</div></code></pre>
+<h3 id="%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%AE%A1%E7%90%86">ユーザー管理</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># スーパーユーザー作成</span>
+python manage.py createsuperuser
+</div></code></pre>
+<h3 id="%E3%81%9D%E3%81%AE%E4%BB%96">その他</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Djangoのシェルを起動（データベースを直接操作できる）</span>
+python manage.py shell
+
+<span class="hljs-comment"># 静的ファイルを集める（本番環境用）</span>
+python manage.py collectstatic
+</div></code></pre>
+
+</body>
+</html>
